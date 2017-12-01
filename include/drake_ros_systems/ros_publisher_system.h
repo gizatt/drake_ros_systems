@@ -53,8 +53,8 @@ class RosPublisherSystem : public systems::LeafSystem<double> {
    * @param node_handle The ROS context.
    */
   RosPublisherSystem(const std::string& topic, ros::NodeHandle* node_handle)
-      : topic_(topic), node_handle_(node_handle_) {
-    DRAKE_DEMAND(node_handle_);
+      : topic_(topic), node_handle_(node_handle) {
+    DRAKE_DEMAND(node_handle_ != nullptr);
 
     publisher_ = node_handle->advertise<RosMessage>(topic, 0);
 

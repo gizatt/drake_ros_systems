@@ -136,10 +136,10 @@ class RosSubscriberSystem : public systems::LeafSystem<double> {
       // TODO(siyuan): should be context.get_time() once #5725 is resolved.
       *time = context.get_time() + 0.0001;
 
-      systems::EventCollection<systems::DiscreteUpdateEvent<double>>&
-          du_events = events->get_mutable_discrete_update_events();
-      du_events.add_event(
-          std::make_unique<systems::DiscreteUpdateEvent<double>>(
+      systems::EventCollection<systems::UnrestrictedUpdateEvent<double>>&
+          uu_events = events->get_mutable_unrestricted_update_events();
+      uu_events.add_event(
+          std::make_unique<systems::UnrestrictedUpdateEvent<double>>(
               systems::Event<double>::TriggerType::kTimed));
     }
   }
