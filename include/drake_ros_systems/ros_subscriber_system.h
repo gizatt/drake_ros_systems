@@ -148,7 +148,7 @@ class RosSubscriberSystem : public systems::LeafSystem<double> {
       const systems::Context<double>&,
       const std::vector<const systems::UnrestrictedUpdateEvent<double>*>&,
       systems::State<double>* state) const override {
-    ProcessMessageAndStoreToAbstractState(state->get_mutable_abstract_state());
+    ProcessMessageAndStoreToAbstractState(&state->get_mutable_abstract_state());
   }
 
   std::unique_ptr<systems::AbstractValues> AllocateAbstractState()
@@ -163,7 +163,7 @@ class RosSubscriberSystem : public systems::LeafSystem<double> {
 
   void SetDefaultState(const systems::Context<double>& context,
                        systems::State<double>* state) const override {
-    ProcessMessageAndStoreToAbstractState(state->get_mutable_abstract_state());
+    ProcessMessageAndStoreToAbstractState(&state->get_mutable_abstract_state());
   };
 
  private:
@@ -194,7 +194,7 @@ class RosSubscriberSystem : public systems::LeafSystem<double> {
   void CalcOutputValue(const systems::Context<double>& context,
                        systems::AbstractValue* output_value) const {
     output_value->SetFrom(
-        context.get_abstract_state()->get_value(kStateIndexMessage));
+        context.get_abstract_state().get_value(kStateIndexMessage));
   }
 
   // The topic on which to receive ROS messages.
